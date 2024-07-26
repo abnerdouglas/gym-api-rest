@@ -45,8 +45,6 @@ public class UserAuthenticationFilter extends OncePerRequestFilter {
                     System.err.println("Erro ao processar o token: " + e.getMessage());
                     e.printStackTrace();
                 }
-            } else {
-                System.err.println("O token está ausente.");
             }
         }
         filterChain.doFilter(request, response);

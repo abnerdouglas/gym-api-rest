@@ -31,3 +31,8 @@ build/
 
 ### VS Code ###
 .vscode/
+
+# Ignorar arquivos e diretórios gerados pelo Docker
+.docker/
+docker-compose.override.yml
+docker-compose.local.yml
