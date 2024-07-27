@@ -4,8 +4,8 @@ import br.com.apirest.gym.dto.CreateUserDto;
 import br.com.apirest.gym.dto.LoginUserDto;
 import br.com.apirest.gym.dto.RecoveryJwtTokenDto;
 import br.com.apirest.gym.entities.User;
-import br.com.apirest.gym.exceptions.response.ApiResponse;
-import br.com.apirest.gym.repositories.UserRepository;
+import br.com.apirest.gym.exceptions.ApiResponse;
+import br.com.apirest.gym.security.authentication.JwtTokenService;
 import br.com.apirest.gym.services.UserService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,7 +22,7 @@ public class UserController {
     private UserService userService;
 
     @Autowired
-    private UserRepository userRepository;
+    private JwtTokenService jwtTokenService;
 
     @PostMapping("/users/login")
     public ResponseEntity<RecoveryJwtTokenDto> authenticateUser(@RequestBody @Valid LoginUserDto loginUserDto) {
@@ -37,30 +37,15 @@ public class UserController {
         return new ResponseEntity<>(apiResponse, HttpStatus.CREATED);
     }
 
-    @GetMapping("/users")
-    public ResponseEntity<List<User>> getUsers(){
-        List<User> users = userRepository.findAll();
-        return new ResponseEntity<List<User>>(users, HttpStatus.FOUND);
-    }
-
     @GetMapping("/")
     public ResponseEntity<String> homePage(){
         return new ResponseEntity<String>("Api Rest Spring Boot is running :)",HttpStatus.OK);
     }
 
-    @GetMapping("/users/test")
-    public ResponseEntity<String> getAuthenticationTest() {
-        return new ResponseEntity<>("Autenticado com sucesso", HttpStatus.OK);
+    @GetMapping("/users")
+    public ResponseEntity<List<User>> getAllUsers(@RequestHeader(value = "Authorization") String token) {
+        jwtTokenService.verifyAuthentication(token);
+        var users = userService.getAllUsers();
+        return new ResponseEntity<>(users, HttpStatus.OK);
     }
-
-    @GetMapping("/users/test/customer")
-    public ResponseEntity<String> getCustomerAuthenticationTest() {
-        return new ResponseEntity<>("Cliente autenticado com sucesso", HttpStatus.OK);
-    }
-
-    @GetMapping("/users/test/administrator")
-    public ResponseEntity<String> getAdminAuthenticationTest() {
-        return new ResponseEntity<>("Administrador autenticado com sucesso", HttpStatus.OK);
-    }
-
 }

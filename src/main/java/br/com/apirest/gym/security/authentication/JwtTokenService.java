@@ -1,5 +1,6 @@
 package br.com.apirest.gym.security.authentication;
 
+import br.com.apirest.gym.exceptions.InvalidTokenException;
 import br.com.apirest.gym.security.userDetails.UserDetailsImplementation;
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.algorithms.Algorithm;
@@ -45,12 +46,37 @@ public class JwtTokenService {
         }
     }
 
+    public Boolean verifyAuthentication(String token) {
+        if (token == null || token.trim().isEmpty()) {
+            throw new InvalidTokenException();
+        }
+
+        try {
+            // Remove o prefixo "Bearer " se estiver presente
+            if (token.startsWith("Bearer ")) {
+                token = token.substring(7);
+            }
+
+            Algorithm algorithm = Algorithm.HMAC256(SECRET_KEY);
+            String subject = JWT.require(algorithm)
+                    .withIssuer(ISSUER)
+                    .build()
+                    .verify(token)
+                    .getSubject();
+
+            return subject != null && !subject.trim().isEmpty();
+
+        } catch (InvalidTokenException exception) {
+            throw new InvalidTokenException();
+        }
+    }
+
     private Instant creationDate() {
-        return ZonedDateTime.now(ZoneId.of("America/Recife")).toInstant();
+        return ZonedDateTime.now(ZoneId.of("America/Sao_Paulo")).toInstant();
     }
 
     private Instant expirationDate() {
-        return ZonedDateTime.now(ZoneId.of("America/Recife")).plusHours(4).toInstant();
+        return ZonedDateTime.now(ZoneId.of("America/Sao_Paulo")).plusHours(4).toInstant();
     }
 
 }

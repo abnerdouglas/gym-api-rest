@@ -39,15 +39,15 @@ public class RestExceptionHandler {
         return new ResponseEntity<>(apiError, HttpStatus.BAD_REQUEST);
     }
 
-//    @ExceptionHandler({EmailNotFoundException.class, NameNotFoundException.class, CpfNotFoundException.class, PasswordNotFoundException.class})
-//    public ResponseEntity<ApiError> notFoundException(RuntimeException ex) {
-//        ApiError apiError = ApiError
-//                .builder()
-//                .code(HttpStatus.NOT_FOUND.value())
-//                .status(HttpStatus.NOT_FOUND.name())
-//                .errors(List.of(ex.getMessage()))
-//                .build();
-//        return new ResponseEntity<>(apiError, HttpStatus.NOT_FOUND);
-//    }
+    @ExceptionHandler(InvalidTokenException.class)
+    public ResponseEntity<ApiError> tokenError(InvalidTokenException e) {
+        ApiError apiError = ApiError
+                .builder()
+                .code(HttpStatus.FORBIDDEN.value())
+                .status(HttpStatus.FORBIDDEN.name())
+                .errors(List.of(e.getMessage()))
+                .build();
+        return new ResponseEntity<>(apiError, HttpStatus.FORBIDDEN);
+    }
 
 }

@@ -1,4 +1,4 @@
-package br.com.apirest.gym.exceptions.alreadyCreated;
+package br.com.apirest.gym.exceptions;
 
 public class CpfAlreadyCreatedException extends RuntimeException {
 

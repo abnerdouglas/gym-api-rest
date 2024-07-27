@@ -5,9 +5,9 @@ import br.com.apirest.gym.dto.LoginUserDto;
 import br.com.apirest.gym.dto.RecoveryJwtTokenDto;
 import br.com.apirest.gym.entities.Role;
 import br.com.apirest.gym.entities.User;
-import br.com.apirest.gym.exceptions.alreadyCreated.CpfAlreadyCreatedException;
-import br.com.apirest.gym.exceptions.alreadyCreated.EmailAlreadyCreatedException;
-import br.com.apirest.gym.exceptions.token.AuthErrorException;
+import br.com.apirest.gym.exceptions.AuthErrorException;
+import br.com.apirest.gym.exceptions.CpfAlreadyCreatedException;
+import br.com.apirest.gym.exceptions.EmailAlreadyCreatedException;
 import br.com.apirest.gym.repositories.UserRepository;
 import br.com.apirest.gym.security.authentication.JwtTokenService;
 import br.com.apirest.gym.security.userDetails.UserDetailsImplementation;
@@ -34,6 +34,7 @@ public class UserService {
 
     @Autowired
     private PasswordEncoder passwordEncoder;
+
 
     public RecoveryJwtTokenDto authenticateUser(LoginUserDto loginUserDto) {
         try {
@@ -69,5 +70,9 @@ public class UserService {
                 .build();
 
         userRepository.save(newUser);
+    }
+
+    public List<User> getAllUsers() {
+        return userRepository.findAll();
     }
 }
