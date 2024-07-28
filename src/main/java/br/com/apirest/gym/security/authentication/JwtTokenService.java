@@ -1,7 +1,7 @@
 package br.com.apirest.gym.security.authentication;
 
 import br.com.apirest.gym.exceptions.InvalidTokenException;
-import br.com.apirest.gym.security.userDetails.UserDetailsImplementation;
+import br.com.apirest.gym.security.userDetails.UserDetailsImpl;
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.algorithms.Algorithm;
 import com.auth0.jwt.exceptions.JWTCreationException;
@@ -19,7 +19,7 @@ public class JwtTokenService {
 
     private static final String ISSUER = "pizzurg-api";
 
-    public String generateToken(UserDetailsImplementation user) {
+    public String generateToken(UserDetailsImpl user) {
         try {
             Algorithm algorithm = Algorithm.HMAC256(SECRET_KEY);
             return JWT.create()
@@ -33,7 +33,7 @@ public class JwtTokenService {
         }
     }
 
-    public String getSubjectFromToken(String token) {
+    public String getSubjectFromToken(String token) throws InvalidTokenException {
         try {
             Algorithm algorithm = Algorithm.HMAC256(SECRET_KEY);
             return JWT.require(algorithm)
@@ -42,32 +42,7 @@ public class JwtTokenService {
                     .verify(token)
                     .getSubject();
         } catch (JWTVerificationException exception){
-            throw new JWTVerificationException("Token inválido ou expirado.");
-        }
-    }
-
-    public Boolean verifyAuthentication(String token) {
-        if (token == null || token.trim().isEmpty()) {
-            throw new InvalidTokenException();
-        }
-
-        try {
-            // Remove o prefixo "Bearer " se estiver presente
-            if (token.startsWith("Bearer ")) {
-                token = token.substring(7);
-            }
-
-            Algorithm algorithm = Algorithm.HMAC256(SECRET_KEY);
-            String subject = JWT.require(algorithm)
-                    .withIssuer(ISSUER)
-                    .build()
-                    .verify(token)
-                    .getSubject();
-
-            return subject != null && !subject.trim().isEmpty();
-
-        } catch (InvalidTokenException exception) {
-            throw new InvalidTokenException();
+            throw new InvalidTokenException("Token inválido.");
         }
     }
 

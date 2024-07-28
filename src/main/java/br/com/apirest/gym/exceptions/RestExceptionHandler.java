@@ -41,8 +41,7 @@ public class RestExceptionHandler {
 
     @ExceptionHandler(InvalidTokenException.class)
     public ResponseEntity<ApiError> tokenError(InvalidTokenException e) {
-        ApiError apiError = ApiError
-                .builder()
+        ApiError apiError = ApiError.builder()
                 .code(HttpStatus.FORBIDDEN.value())
                 .status(HttpStatus.FORBIDDEN.name())
                 .errors(List.of(e.getMessage()))

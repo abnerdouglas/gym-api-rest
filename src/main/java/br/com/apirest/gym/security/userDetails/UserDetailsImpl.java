@@ -10,11 +10,11 @@ import java.util.Collection;
 import java.util.stream.Collectors;
 
 @Getter
-public class UserDetailsImplementation implements UserDetails {
+public class UserDetailsImpl implements UserDetails {
 
     private User user;
 
-    public UserDetailsImplementation(User user) {
+    public UserDetailsImpl(User user) {
         this.user = user;
     }
 

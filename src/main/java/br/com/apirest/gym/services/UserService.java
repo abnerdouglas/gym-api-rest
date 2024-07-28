@@ -10,7 +10,7 @@ import br.com.apirest.gym.exceptions.CpfAlreadyCreatedException;
 import br.com.apirest.gym.exceptions.EmailAlreadyCreatedException;
 import br.com.apirest.gym.repositories.UserRepository;
 import br.com.apirest.gym.security.authentication.JwtTokenService;
-import br.com.apirest.gym.security.userDetails.UserDetailsImplementation;
+import br.com.apirest.gym.security.userDetails.UserDetailsImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -43,9 +43,10 @@ public class UserService {
 
             Authentication authentication = authenticationManager.authenticate(usernamePasswordAuthenticationToken);
 
-            UserDetailsImplementation userDetails = (UserDetailsImplementation) authentication.getPrincipal();
+            UserDetailsImpl userDetails = (UserDetailsImpl) authentication.getPrincipal();
 
             return new RecoveryJwtTokenDto(jwtTokenService.generateToken(userDetails));
+
         } catch (Exception e) {
             throw new AuthErrorException(e);
         }
@@ -72,7 +73,7 @@ public class UserService {
         userRepository.save(newUser);
     }
 
-    public List<User> getAllUsers() {
+    public List<User> getAllUsers()  {
         return userRepository.findAll();
     }
 }
