@@ -1,0 +1,6 @@
+*.js linguagens=JavaScript
+*.ts linguagens=TypeScript
+*.tsx linguagens=TypeScript
+*.java linguagens=Java
+*.css linguagens=CSS
+*.html linguagens=HTML
