@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+@CrossOrigin
 @RestController
 public class UserController {
 
@@ -24,13 +25,13 @@ public class UserController {
     @Autowired
     private JwtTokenService jwtTokenService;
 
-    @PostMapping("/users/login")
+    @PostMapping("/api/login")
     public ResponseEntity<RecoveryJwtTokenDto> authenticateUser(@RequestBody @Valid LoginUserDto loginUserDto) {
         RecoveryJwtTokenDto token = userService.authenticateUser(loginUserDto);
         return new ResponseEntity<>(token, HttpStatus.OK);
     }
 
-    @PostMapping("/users/register")
+    @PostMapping("/api/register")
     public ResponseEntity<ApiResponse> createUser(@RequestBody @Valid CreateUserDto createUserDto) {
         userService.createUser(createUserDto);
         ApiResponse apiResponse = new ApiResponse("Usuário criado com sucesso");
@@ -42,7 +43,7 @@ public class UserController {
         return new ResponseEntity<String>("Api Rest Spring Boot is running :)",HttpStatus.OK);
     }
 
-    @GetMapping("/users")
+    @GetMapping("/api/users")
     public ResponseEntity<List<User>> getUsers(@RequestHeader("Authorization") String token) {
 
         if (token != null && token.startsWith("Bearer ")) {
