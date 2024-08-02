@@ -3,7 +3,7 @@ package br.com.apirest.gym.controllers;
 import br.com.apirest.gym.dto.CreateUserDto;
 import br.com.apirest.gym.dto.LoginUserDto;
 import br.com.apirest.gym.dto.RecoveryJwtTokenDto;
-import br.com.apirest.gym.entities.User;
+import br.com.apirest.gym.models.User;
 import br.com.apirest.gym.exceptions.ApiResponse;
 import br.com.apirest.gym.security.authentication.JwtTokenService;
 import br.com.apirest.gym.services.UserService;

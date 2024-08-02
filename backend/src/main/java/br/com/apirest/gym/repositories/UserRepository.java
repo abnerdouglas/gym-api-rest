@@ -1,6 +1,6 @@
 package br.com.apirest.gym.repositories;
 
-import br.com.apirest.gym.entities.User;
+import br.com.apirest.gym.models.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

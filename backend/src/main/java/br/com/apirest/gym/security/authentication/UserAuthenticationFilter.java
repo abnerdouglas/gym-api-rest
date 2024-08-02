@@ -1,7 +1,6 @@
 package br.com.apirest.gym.security.authentication;
 
-import br.com.apirest.gym.entities.User;
-import br.com.apirest.gym.exceptions.InvalidTokenException;
+import br.com.apirest.gym.models.User;
 import br.com.apirest.gym.repositories.UserRepository;
 import br.com.apirest.gym.security.config.SecurityConfiguration;
 import br.com.apirest.gym.security.userDetails.UserDetailsImpl;
@@ -43,7 +42,7 @@ public class UserAuthenticationFilter extends OncePerRequestFilter {
                             new UsernamePasswordAuthenticationToken(userDetails.getUsername(), null, userDetails.getAuthorities());
 
                     SecurityContextHolder.getContext().setAuthentication(authentication);
-                } catch (InvalidTokenException e) {
+                } catch (Exception e) {
                     response.setStatus(HttpStatus.FORBIDDEN.value());
                     response.getWriter().write("Token invalido ou expirado.");
                     return;

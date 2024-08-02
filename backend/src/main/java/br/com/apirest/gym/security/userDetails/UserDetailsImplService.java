@@ -1,6 +1,6 @@
 package br.com.apirest.gym.security.userDetails;
 
-import br.com.apirest.gym.entities.User;
+import br.com.apirest.gym.models.User;
 import br.com.apirest.gym.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;

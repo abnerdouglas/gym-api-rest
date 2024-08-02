@@ -3,8 +3,8 @@ package br.com.apirest.gym.services;
 import br.com.apirest.gym.dto.CreateUserDto;
 import br.com.apirest.gym.dto.LoginUserDto;
 import br.com.apirest.gym.dto.RecoveryJwtTokenDto;
-import br.com.apirest.gym.entities.Role;
-import br.com.apirest.gym.entities.User;
+import br.com.apirest.gym.models.Role;
+import br.com.apirest.gym.models.User;
 import br.com.apirest.gym.exceptions.AuthErrorException;
 import br.com.apirest.gym.exceptions.CpfAlreadyCreatedException;
 import br.com.apirest.gym.exceptions.EmailAlreadyCreatedException;
@@ -34,7 +34,6 @@ public class UserService {
 
     @Autowired
     private PasswordEncoder passwordEncoder;
-
 
     public RecoveryJwtTokenDto authenticateUser(LoginUserDto loginUserDto) {
         try {

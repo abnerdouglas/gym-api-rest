@@ -1,6 +1,6 @@
-package br.com.apirest.gym.entities;
+package br.com.apirest.gym.models;
 
-import br.com.apirest.gym.entities.Roles.RoleName;
+import br.com.apirest.gym.models.Roles.RoleName;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
