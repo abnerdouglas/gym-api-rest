@@ -4,6 +4,7 @@ import br.com.apirest.gym.models.Exercise;
 import br.com.apirest.gym.validations.ValidationDifficulty;
 import br.com.apirest.gym.validations.ValidationExerciseType;
 import br.com.apirest.gym.validations.ValidationMuscleGroup;
+import io.github.cdimascio.dotenv.Dotenv;
 import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
@@ -12,7 +13,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
@@ -21,7 +21,8 @@ import java.util.stream.Collectors;
 public class ExerciseService {
 
     private static final String API_URL_TEMPLATE = "https://api.api-ninjas.com/v1/exercises";
-    private static final String API_KEY = "SSvLTvTNJ9LWsCeD2pg2xw==5Wm6Yi0rdwtG7VbQ"; // Substitua pela sua chave da API
+    private static final Dotenv dotenv = Dotenv.load();
+    private static final String API_KEY = dotenv.get("API_KEY"); // Substitua pela sua chave da API
     private final RestTemplate restTemplate;
     public ExerciseService(RestTemplate restTemplate) {
         this.restTemplate = restTemplate;
