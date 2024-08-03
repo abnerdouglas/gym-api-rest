@@ -1,11 +1,12 @@
 package br.com.apirest.gym.security.authentication;
 
-import br.com.apirest.gym.exceptions.InvalidTokenException;
+import br.com.apirest.gym.exceptions.users.InvalidTokenException;
 import br.com.apirest.gym.security.userDetails.UserDetailsImpl;
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.algorithms.Algorithm;
 import com.auth0.jwt.exceptions.JWTCreationException;
 import com.auth0.jwt.exceptions.JWTVerificationException;
+import io.github.cdimascio.dotenv.Dotenv;
 import org.springframework.stereotype.Service;
 
 import java.time.Instant;
@@ -15,9 +16,9 @@ import java.time.ZonedDateTime;
 @Service
 public class JwtTokenService {
 
-    private static final String SECRET_KEY = "4Z^XrroxR@dWxqf$mTTKwW$!@#qGr4P";
-
-    private static final String ISSUER = "pizzurg-api";
+    private static final Dotenv dotenv = Dotenv.load();
+    private static final String SECRET_KEY = dotenv.get("SECRET_KEY");
+    private static final String ISSUER = dotenv.get("ISSUER");
 
     public String generateToken(UserDetailsImpl user) {
         try {

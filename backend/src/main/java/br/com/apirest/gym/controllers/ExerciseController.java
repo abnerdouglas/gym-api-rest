@@ -28,27 +28,7 @@ public class ExerciseController {
             @RequestParam(required = false) String type,
             @RequestParam(required = false) String difficulty) {
 
-        // Cria um mapa com os parâmetros fornecidos
-        Map<String, String> queryParams = new HashMap<>();
-
-        if (muscle != null) {
-            queryParams.put("muscle", muscle);
-        }
-
-        if (type != null) {
-            queryParams.put("type", type);
-        }
-
-        if (difficulty != null) {
-            queryParams.put("difficulty", difficulty);
-        }
-
-        // Valida e faz a solicitação ao serviço
-        if (queryParams.size() != 1) {
-            throw new IllegalArgumentException("Você deve usar apenas um dos parâmetros: 'muscle', 'type' ou 'difficulty'");
-        }
-
-        List<Exercise> exercises = exerciseService.getExercises(queryParams);
+        List<Exercise> exercises = exerciseService.getExercises(muscle, type, difficulty);
         return new ResponseEntity<>(exercises, HttpStatus.OK);
     }
 }

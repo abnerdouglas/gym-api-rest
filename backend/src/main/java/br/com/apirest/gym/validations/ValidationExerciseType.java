@@ -1,10 +1,12 @@
 package br.com.apirest.gym.validations;
 
-import br.com.apirest.gym.exceptions.ExerciseTypeException;
+import br.com.apirest.gym.exceptions.exercises.ExerciseTypeException;
+import org.springframework.stereotype.Component;
 
 import java.util.Arrays;
 import java.util.List;
 
+@Component
 public class ValidationExerciseType implements Validation {
 
     public static final List<String> EXERCISE_TYPE = Arrays.asList(

@@ -1,5 +1,9 @@
 package br.com.apirest.gym.exceptions;
 
+import br.com.apirest.gym.exceptions.exercises.DifficultyLevelException;
+import br.com.apirest.gym.exceptions.exercises.ExerciseTypeException;
+import br.com.apirest.gym.exceptions.exercises.MuscleGroupException;
+import br.com.apirest.gym.exceptions.users.InvalidTokenException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.MethodArgumentNotValidException;

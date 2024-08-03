@@ -4,7 +4,9 @@ import br.com.apirest.gym.models.Exercise;
 import br.com.apirest.gym.validations.ValidationDifficulty;
 import br.com.apirest.gym.validations.ValidationExerciseType;
 import br.com.apirest.gym.validations.ValidationMuscleGroup;
+import br.com.apirest.gym.validations.ValidationParameter;
 import io.github.cdimascio.dotenv.Dotenv;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
@@ -13,69 +15,36 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
+import java.util.Arrays;
 import java.util.List;
-import java.util.Map;
-import java.util.stream.Collectors;
+import java.util.Objects;
 
 @Service
 public class ExerciseService {
 
-    private static final String API_URL_TEMPLATE = "https://api.api-ninjas.com/v1/exercises";
     private static final Dotenv dotenv = Dotenv.load();
-    private static final String API_KEY = dotenv.get("API_KEY"); // Substitua pela sua chave da API
-    private final RestTemplate restTemplate;
-    public ExerciseService(RestTemplate restTemplate) {
-        this.restTemplate = restTemplate;
-    }
+    private static final String API_URL_TEMPLATE = dotenv.get("API_URL_TEMPLATE");
+    private static final String API_KEY = dotenv.get("API_KEY");
+    @Autowired
+    private RestTemplate restTemplate;
+    @Autowired
+    private ValidationMuscleGroup validationMuscleGroup;
+    @Autowired
+    private ValidationExerciseType validationExerciseType;
+    @Autowired
+    private ValidationDifficulty validationDifficulty;
+    @Autowired
+    private ValidationParameter validationParameter;
 
-    public List<Exercise> getExercises(Map<String, String> queryParams) {
-        // Configurar os cabeçalhos da solicitação
-        HttpHeaders headers = new HttpHeaders();
-        headers.set("X-Api-Key", API_KEY); // Adiciona a chave da API ao cabeçalho
-        headers.set("Accept", "application/json"); // Solicita resposta no formato JSON
-
-        // Configura a entidade com os cabeçalhos
-        HttpEntity<String> entity = new HttpEntity<>(headers);
-
-        // Validação dos parâmetros
-        ValidationMuscleGroup validationMuscleGroup = new ValidationMuscleGroup();
-        ValidationExerciseType validationExerciseType = new ValidationExerciseType();
-        ValidationDifficulty validationDifficulty = new ValidationDifficulty();
-
-        String muscle = queryParams.get("muscle");
-        String type = queryParams.get("type");
-        String difficulty = queryParams.get("difficulty");
-
-        // Verifica se apenas um dos parâmetros está presente
-        if (queryParams.size() != 1) {
-            throw new IllegalArgumentException("Você deve usar apenas um dos parâmetros: 'muscle', 'type' ou 'difficulty'.");
-        }
-
-        if (muscle != null) {
-            validationMuscleGroup.validate(muscle);
-        }
-
-        if (type != null) {
-            validationExerciseType.validate(type);
-        }
-
-        if (difficulty != null) {
-            validationDifficulty.validate(difficulty);
-        }
-
-        // Construir a string de consulta a partir dos parâmetros
-        String queryString = queryParams.entrySet().stream()
-                .map(entry -> entry.getKey() + "=" + entry.getValue())
-                .collect(Collectors.joining("&"));
-
-        // Adiciona a string de consulta à URL
+    public List<Exercise> getExercises(String muscle, String type, String difficulty) {
+        validateQueryParams(muscle, type, difficulty);
+        String queryString = buildQueryString(muscle, type, difficulty);
         String url = API_URL_TEMPLATE + "?" + queryString;
 
-        // Faz a solicitação GET para a API
         ResponseEntity<List<Exercise>> response = restTemplate.exchange(
                 url,
                 HttpMethod.GET,
-                entity,
+                new HttpEntity<>(buildHeaders()),
                 new ParameterizedTypeReference<List<Exercise>>() {}
         );
 
@@ -84,5 +53,59 @@ public class ExerciseService {
         } else {
             throw new RuntimeException("Error: " + response.getStatusCode() + " " + response.getBody());
         }
+    }
+
+    private void validateQueryParams(String muscle, String type, String difficulty) {
+        List<String> params = Arrays.asList(muscle, type, difficulty);
+        long nonNullCount = params.stream().filter(Objects::nonNull).count();
+
+        if (nonNullCount != 1) {
+            throw new IllegalArgumentException("Você deve usar apenas um dos parâmetros: 'muscle', 'type' ou 'difficulty'.");
+        }
+
+        if (muscle != null) {
+            validationParameter.validate("muscle");
+            validationMuscleGroup.validate(muscle);
+        } else if (type != null) {
+            validationParameter.validate("type");
+            validationExerciseType.validate(type);
+        } else {
+            validationParameter.validate("difficulty");
+            validationDifficulty.validate(difficulty);
+        }
+    }
+
+    private void validateParam(String param) {
+        if (param == null) {
+            return;
+        }
+
+        if (param.equals("muscle")) {
+            validationMuscleGroup.validate(param);
+        } else if (param.equals("type")) {
+            validationExerciseType.validate(param);
+        } else if (param.equals("difficulty")) {
+            validationDifficulty.validate(param);
+        } else {
+            throw new IllegalArgumentException("Parametro inválido: " + param);
+        }
+    }
+
+    private HttpHeaders buildHeaders() {
+        HttpHeaders headers = new HttpHeaders();
+        headers.set("X-Api-Key", API_KEY);
+        headers.set("Accept", "application/json");
+        return headers;
+    }
+
+    private String buildQueryString(String muscle, String type, String difficulty) {
+        if (muscle != null) {
+            return "muscle=" + muscle;
+        } else if (type != null) {
+            return "type=" + type;
+        } else if (difficulty != null) {
+            return "difficulty=" + difficulty;
+        }
+        return "";
     }
 }

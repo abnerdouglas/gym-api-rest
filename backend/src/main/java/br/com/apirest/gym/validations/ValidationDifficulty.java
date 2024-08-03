@@ -1,10 +1,12 @@
 package br.com.apirest.gym.validations;
 
-import br.com.apirest.gym.exceptions.DifficultyLevelException;
+import br.com.apirest.gym.exceptions.exercises.DifficultyLevelException;
+import org.springframework.stereotype.Component;
 
 import java.util.Arrays;
 import java.util.List;
 
+@Component
 public class ValidationDifficulty implements Validation{
 
     private static final List<String> DIFFICULTY_LEVELS = Arrays.asList(

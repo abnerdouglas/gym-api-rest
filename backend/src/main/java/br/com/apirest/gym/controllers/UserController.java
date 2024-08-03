@@ -46,14 +46,7 @@ public class UserController {
 
     @GetMapping("/users")
     public ResponseEntity<List<User>> getUsers(@RequestHeader("Authorization") String token) {
-
-        if (token != null && token.startsWith("Bearer ")) {
-            token = token.substring(7);
-        }
-
-        jwtTokenService.getSubjectFromToken(token);
-
-        List<User> users = userService.getAllUsers();
+        List<User> users = userService.getAllUsers(token);
         return new ResponseEntity<>(users, HttpStatus.OK);
     }
 }

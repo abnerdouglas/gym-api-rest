@@ -1,4 +1,4 @@
-package br.com.apirest.gym.exceptions;
+package br.com.apirest.gym.exceptions.exercises;
 
 public class ExerciseTypeException extends RuntimeException{
 

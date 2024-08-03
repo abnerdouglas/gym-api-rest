@@ -1,4 +1,4 @@
-package br.com.apirest.gym.exceptions;
+package br.com.apirest.gym.exceptions.users;
 
 public class EmailAlreadyCreatedException extends RuntimeException{
 

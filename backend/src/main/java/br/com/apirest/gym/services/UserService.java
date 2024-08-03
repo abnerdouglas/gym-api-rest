@@ -5,9 +5,9 @@ import br.com.apirest.gym.dto.LoginUserDto;
 import br.com.apirest.gym.dto.RecoveryJwtTokenDto;
 import br.com.apirest.gym.models.Role;
 import br.com.apirest.gym.models.User;
-import br.com.apirest.gym.exceptions.AuthErrorException;
-import br.com.apirest.gym.exceptions.CpfAlreadyCreatedException;
-import br.com.apirest.gym.exceptions.EmailAlreadyCreatedException;
+import br.com.apirest.gym.exceptions.users.AuthErrorException;
+import br.com.apirest.gym.exceptions.users.CpfAlreadyCreatedException;
+import br.com.apirest.gym.exceptions.users.EmailAlreadyCreatedException;
 import br.com.apirest.gym.repositories.UserRepository;
 import br.com.apirest.gym.security.authentication.JwtTokenService;
 import br.com.apirest.gym.security.userDetails.UserDetailsImpl;
@@ -72,7 +72,19 @@ public class UserService {
         userRepository.save(newUser);
     }
 
-    public List<User> getAllUsers()  {
+    public List<User> getAllUsers(String token) {
+        // Verificar se o token é nulo ou vazio
+        if (token == null || !token.startsWith("Bearer ")) {
+            throw new IllegalArgumentException("Token inválido ou ausente");
+        }
+
+        // Remover o prefixo "Bearer "
+        token = token.substring(7);
+
+        // Obter o assunto do token para qualquer lógica adicional (opcional)
+        String subject = jwtTokenService.getSubjectFromToken(token);
+
+        // Retornar a lista de usuários
         return userRepository.findAll();
     }
 }

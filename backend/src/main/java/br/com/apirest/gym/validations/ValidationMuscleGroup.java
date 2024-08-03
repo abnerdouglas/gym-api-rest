@@ -1,10 +1,12 @@
 package br.com.apirest.gym.validations;
 
-import br.com.apirest.gym.exceptions.MuscleGroupException;
+import br.com.apirest.gym.exceptions.exercises.MuscleGroupException;
+import org.springframework.stereotype.Component;
 
 import java.util.Arrays;
 import java.util.List;
 
+@Component
 public class ValidationMuscleGroup implements Validation {
 
     private static final List<String> MUSCLE_GROUPS = Arrays.asList(
@@ -31,5 +33,7 @@ public class ValidationMuscleGroup implements Validation {
             throw new MuscleGroupException("Grupo muscular inválido: " + muscle);
         }
     }
+
+
 
 }
