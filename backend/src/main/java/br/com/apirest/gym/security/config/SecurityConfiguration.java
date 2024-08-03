@@ -24,8 +24,12 @@ public class SecurityConfiguration {
     public static final String [] ENDPOINTS_WITH_AUTHENTICATION_NOT_REQUIRED = {
             "/api/login",
             "/api/register",
-            "/",
-            "/workout-plan"
+            "/"
+    };
+
+    // api de exercicios ja possui um token de autenticação para visualização dos dados
+    public static final String [] ENDPOINTS_WITH_PARTICULAR_AUTHENTICATION = {
+            "/api/exercises"
     };
 
     public static final String [] ENDPOINTS_WITH_AUTHENTICATION_REQUIRED = {
@@ -41,6 +45,7 @@ public class SecurityConfiguration {
                 )
                 .authorizeHttpRequests(authorize -> authorize
                         .requestMatchers(ENDPOINTS_WITH_AUTHENTICATION_NOT_REQUIRED).permitAll()
+                        .requestMatchers(ENDPOINTS_WITH_PARTICULAR_AUTHENTICATION).permitAll()
                         .requestMatchers(ENDPOINTS_WITH_AUTHENTICATION_REQUIRED).authenticated()
                         .anyRequest().authenticated()
                 )

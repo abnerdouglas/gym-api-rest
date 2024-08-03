@@ -49,4 +49,33 @@ public class RestExceptionHandler {
         return new ResponseEntity<>(apiError, HttpStatus.FORBIDDEN);
     }
 
+    @ExceptionHandler(MuscleGroupException.class)
+    public ResponseEntity<ApiError> muscleGroupValidationException(MuscleGroupException e) {
+        ApiError apiError = ApiError.builder()
+                .code(HttpStatus.BAD_REQUEST.value())
+                .status(HttpStatus.BAD_REQUEST.name())
+                .errors(List.of(e.getMessage()))
+                .build();
+        return new ResponseEntity<>(apiError, HttpStatus.BAD_REQUEST);
+    }
+
+    @ExceptionHandler(ExerciseTypeException.class)
+    public ResponseEntity<ApiError> exerciseTypeException(ExerciseTypeException e) {
+        ApiError apiError = ApiError.builder()
+                .code(HttpStatus.BAD_REQUEST.value())
+                .status(HttpStatus.BAD_REQUEST.name())
+                .errors(List.of(e.getMessage()))
+                .build();
+        return new ResponseEntity<>(apiError, HttpStatus.BAD_REQUEST);
+    }
+
+    @ExceptionHandler(DifficultyLevelException.class)
+    public ResponseEntity<ApiError> difficultyLevelException(DifficultyLevelException e) {
+        ApiError apiError = ApiError.builder()
+                .code(HttpStatus.BAD_REQUEST.value())
+                .status(HttpStatus.BAD_REQUEST.name())
+                .errors(List.of(e.getMessage()))
+                .build();
+        return new ResponseEntity<>(apiError, HttpStatus.BAD_REQUEST);
+    }
 }

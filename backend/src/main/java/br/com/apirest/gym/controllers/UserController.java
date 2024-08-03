@@ -17,6 +17,7 @@ import java.util.List;
 
 @CrossOrigin
 @RestController
+@RequestMapping("/api")
 public class UserController {
 
     @Autowired
@@ -25,25 +26,25 @@ public class UserController {
     @Autowired
     private JwtTokenService jwtTokenService;
 
-    @PostMapping("/api/login")
+    @PostMapping("/login")
     public ResponseEntity<RecoveryJwtTokenDto> authenticateUser(@RequestBody @Valid LoginUserDto loginUserDto) {
         RecoveryJwtTokenDto token = userService.authenticateUser(loginUserDto);
         return new ResponseEntity<>(token, HttpStatus.OK);
     }
 
-    @PostMapping("/api/register")
+    @PostMapping("/register")
     public ResponseEntity<ApiResponse> createUser(@RequestBody @Valid CreateUserDto createUserDto) {
         userService.createUser(createUserDto);
         ApiResponse apiResponse = new ApiResponse("Usuário criado com sucesso");
         return new ResponseEntity<>(apiResponse, HttpStatus.CREATED);
     }
 
-    @GetMapping("/")
+    @GetMapping
     public ResponseEntity<String> homePage(){
         return new ResponseEntity<String>("Api Rest Spring Boot is running :)",HttpStatus.OK);
     }
 
-    @GetMapping("/api/users")
+    @GetMapping("/users")
     public ResponseEntity<List<User>> getUsers(@RequestHeader("Authorization") String token) {
 
         if (token != null && token.startsWith("Bearer ")) {
