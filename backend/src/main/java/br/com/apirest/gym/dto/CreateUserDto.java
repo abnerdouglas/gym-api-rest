@@ -1,6 +1,6 @@
 package br.com.apirest.gym.dto;
 
-import br.com.apirest.gym.entities.Roles.RoleName;
+import br.com.apirest.gym.models.Roles.RoleName;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 

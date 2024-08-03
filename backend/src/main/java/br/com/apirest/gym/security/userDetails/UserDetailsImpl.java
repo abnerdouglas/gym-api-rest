@@ -1,6 +1,6 @@
 package br.com.apirest.gym.security.userDetails;
 
-import br.com.apirest.gym.entities.User;
+import br.com.apirest.gym.models.User;
 import lombok.Getter;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;

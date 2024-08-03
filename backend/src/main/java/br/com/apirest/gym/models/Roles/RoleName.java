@@ -1,4 +1,4 @@
-package br.com.apirest.gym.entities.Roles;
+package br.com.apirest.gym.models.Roles;
 
 public enum RoleName {
 

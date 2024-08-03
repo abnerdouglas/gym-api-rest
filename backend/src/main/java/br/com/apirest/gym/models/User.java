@@ -1,4 +1,4 @@
-package br.com.apirest.gym.entities;
+package br.com.apirest.gym.models;
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
