@@ -11,18 +11,26 @@ import {
   Text,
   useColorModeValue,
   useToast,
+  InputRightElement,
+  InputGroup,
+  Link,
 } from '@chakra-ui/react';
 import Cookies from 'js-cookie';
-import { authenticate } from '../services/authService';
+import { authenticate } from '../../services/authService';
+import React from 'react';
 
 const Login = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const router = useRouter();
   const toast = useToast();
+  const [loading, setLoading] = useState(false);
+  const [show, setShow] = React.useState(false)
+  const handleClick = () => setShow(!show)
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    setLoading(true);
     try {
       const data = await authenticate(email, password);
       Cookies.set('token', data.token, { expires: 1, secure: true, sameSite: 'strict' });
@@ -41,6 +49,8 @@ const Login = () => {
         duration: 5000,
         isClosable: true,
       });
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -54,7 +64,7 @@ const Login = () => {
       py={12}
       px={6}
     >
-      <Stack spacing={8} mx="auto" maxW="lg" py={12} px={6}>
+      <Stack spacing={8} mx="auto" maxW="lg" width="100%" py={12} px={6}>
         <Stack align="center">
           <Heading fontSize="4xl">GYM API REST</Heading>
           <Text fontSize="lg" color="gray.600">
@@ -66,9 +76,12 @@ const Login = () => {
           bg={useColorModeValue('white', 'gray.700')}
           boxShadow="lg"
           p={8}
+          width="100%" 
+          maxWidth="600vh"
         >
           <form onSubmit={handleSubmit}>
             <Stack spacing={4}>
+
               <FormControl id="email">
                 <FormLabel>Email</FormLabel>
                 <Input
@@ -76,20 +89,32 @@ const Login = () => {
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
                   required
+                  placeholder='Digite seu email'
                 />
               </FormControl>
               <FormControl id="password">
+
                 <FormLabel>Senha</FormLabel>
-                <Input
-                  type="password"
-                  value={password}
-                  onChange={(e) => setPassword(e.target.value)}
-                  required
-                />
+                <InputGroup size='md'>
+                  <Input
+                    type={show ? 'text' : 'password'}
+                    value={password}
+                    onChange={(e) => setPassword(e.target.value)}
+                    required
+                    placeholder='Digite sua senha'
+                  />
+                  <InputRightElement width='4.5rem'>
+                    <Button h='2.5rem' size='sm' onClick={handleClick}>
+                      {show ? 'Esconder' : 'Mostrar'}
+                    </Button>
+                  </InputRightElement>
+                </InputGroup>
+
               </FormControl>
+
               <Stack spacing={10}>
                 <Button
-                  isLoading={false}
+                  isLoading={loading}
                   bg="blue.400"
                   color="white"
                   _hover={{
@@ -100,6 +125,13 @@ const Login = () => {
                   Entrar
                 </Button>
               </Stack>
+                
+              <Stack spacing={10}>
+                <Link href="/register" textAlign={'center'}>
+                  Não possui cadastro ainda? Clique aqui
+                </Link>
+              </Stack>
+            
             </Stack>
           </form>
         </Box>

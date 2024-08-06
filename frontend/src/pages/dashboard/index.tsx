@@ -1,12 +1,13 @@
 import { useRouter } from 'next/router';
 import { Box, Flex, Button, Text, Spinner } from '@chakra-ui/react';
 import Cookies from 'js-cookie';
-import useAuth from '../hooks/useAuth';
+import useAuth from '@/hooks/useAuth';
+import CardTemplate from '@/components/CardTemplate';
+import Parameters from '@/components/parameters/Parameters';
 
 const Dashboard = () => {
   const { isAuthenticated } = useAuth();
   const router = useRouter();
-
 
   const handleLogout = () => {
     Cookies.remove('token');
@@ -41,7 +42,10 @@ const Dashboard = () => {
         <Text fontSize="2xl" fontWeight="bold">Dashboard</Text>
         <Text>Bem vido a dashboard!</Text>
       </Box>
+      <Parameters/>
+      <CardTemplate/>
     </Box>
+    
   );
 };
 
