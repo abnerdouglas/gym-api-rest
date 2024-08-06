@@ -1,14 +1,14 @@
 import { Select, Stack } from "@chakra-ui/react";
 
-
 interface MuscleProps {
     setParameter1: React.Dispatch<React.SetStateAction<string>>;
+    setParameter2: React.Dispatch<React.SetStateAction<string>>;
 }
 
-const Muscle: React.FC<MuscleProps> = ({ setParameter1 }) => {
+const Muscle: React.FC<MuscleProps> = ({ setParameter1, setParameter2 }) => {
 
     const handleChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
-        setParameter1(e.target.value);
+        setParameter2(e.target.value);
     };
 
     return (
@@ -20,7 +20,7 @@ const Muscle: React.FC<MuscleProps> = ({ setParameter1 }) => {
             >
                 <option value={'abdominals'}> Abdominais </option>
                 <option value={'abductors'}> Abduções </option>
-                <option value={'aductors'}> Adutores </option>
+                <option value={'adductors'}> Adutores </option>
                 <option value={'biceps'}> Bíceps </option>
                 <option value={'triceps'}> Tríceps </option>
                 <option value={'calves'}> Panturilhas </option>
@@ -28,11 +28,11 @@ const Muscle: React.FC<MuscleProps> = ({ setParameter1 }) => {
                 <option value={'forearms'}> Antebraços </option>
                 <option value={'glutes'}> Glúteos </option>
                 <option value={'hamstrings'}> Posterior de Coxa </option>
-                <option value={'lats'}> Latíssimo da Dorsal </option>
-                <option value={'lower-back'}> Parte Baixa das Costas </option>
-                <option value={'middle-back'}> Parte do Meio das Costas </option>
+                <option value={'lats'}> Latíssimo do Dorso </option>
+                <option value={'lower_back'}> Parte Baixa das Costas </option>
+                <option value={'middle_back'}> Parte do Meio das Costas </option>
                 <option value={'neck'}> Pescoço </option>
-                <option value={'quadriceps'}> Qaudríceps </option>
+                <option value={'quadriceps'}> Quadríceps </option>
                 <option value={'traps'}> Trapézio </option>
             </Select>
         </Stack>

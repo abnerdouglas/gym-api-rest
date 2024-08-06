@@ -13,12 +13,12 @@ import {
   useToast,
   InputRightElement,
   InputGroup,
-  Link,
   Select,
 } from '@chakra-ui/react';
 import React from 'react';
 import { register } from '@/services/authService';
 import { mapRole, validateCPF } from '@/utils/validateValues';
+import Link from 'next/link';
 
 const Register = () => {
   const [name, setName] = useState('');
@@ -214,7 +214,7 @@ const Register = () => {
               </Stack>
 
               <Stack spacing={10}>
-                <Link href="/login" textAlign={'center'}>
+                <Link href="/login">
                   Já possui o cadastro? Clique aqui para realizar o login
                 </Link>
               </Stack>

@@ -12,12 +12,12 @@ import {
   useColorModeValue,
   useToast,
   InputRightElement,
-  InputGroup,
-  Link,
+  InputGroup
 } from '@chakra-ui/react';
 import Cookies from 'js-cookie';
 import { authenticate } from '../../services/authService';
 import React from 'react';
+import Link from 'next/link';
 
 const Login = () => {
   const [email, setEmail] = useState('');
@@ -127,7 +127,7 @@ const Login = () => {
               </Stack>
                 
               <Stack spacing={10}>
-                <Link href="/register" textAlign={'center'}>
+                <Link href="/register">
                   Não possui cadastro ainda? Clique aqui
                 </Link>
               </Stack>

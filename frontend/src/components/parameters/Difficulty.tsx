@@ -1,11 +1,22 @@
 import { Select, Stack } from "@chakra-ui/react";
 
-const Difficulty = () => {
+interface DifficultyProps {
+    setParameter1: React.Dispatch<React.SetStateAction<string>>;
+    setParameter2: React.Dispatch<React.SetStateAction<string>>;
+}
+
+const Difficulty : React.FC<DifficultyProps> = ({setParameter1, setParameter2}) => {
+
+    const handleChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
+        setParameter2(e.target.value);
+    };
+
     return (
         <Stack spacing={5} direction="row">
             <Select
                 placeholder='Nível de dificuldade'
                 borderColor='blue.500'
+                onChange={handleChange}
             >
                 <option value='beginner'> Iniciante </option>
                 <option value='intermediate'> Intermediário </option>

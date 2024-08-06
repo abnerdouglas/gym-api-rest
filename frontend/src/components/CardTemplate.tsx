@@ -1,43 +1,46 @@
-import { Box, Card, CardHeader, CardBody, Heading, Stack, StackDivider, Text } from '@chakra-ui/react';
+import { Box, Heading, Text, VStack } from '@chakra-ui/react';
+import { useExercise } from './ExerciseContent';
 
 const CardTemplate = () => {
+  const { exercises } = useExercise();
+  
+  return (
+    <Box p={4}>
+      <VStack mt={5} spacing={4}>
+        {exercises.length > 0 ? (
+          exercises.map((exercise, index) => (
+            <Box key={index} p={4} borderWidth="1px" borderColor={'black'} borderRadius="lg" w="full">
 
-    return (
-        <Card>
-        <CardHeader>
-          <Heading size='md'>Client Report</Heading>
-        </CardHeader>
-      
-        <CardBody>
-          <Stack divider={<StackDivider />} spacing='4'>
-            <Box>
-              <Heading size='xs' textTransform='uppercase'>
-                Summary
-              </Heading>
-              <Text pt='2' fontSize='sm'>
-                View a summary of all your clients over the last month.
+              <Heading size={'md'}> {exercise.name} </Heading>
+
+              <Text pt={3} fontSize="large">
+                <Box as="span" fontWeight="bold">Músculo:</Box> {exercise.muscle}
               </Text>
-            </Box>
-            <Box>
-              <Heading size='xs' textTransform='uppercase'>
-                Overview
-              </Heading>
-              <Text pt='2' fontSize='sm'>
-                Check out the overview of your clients.
+
+              <Text pt={3} fontSize="large">
+                <Box as="span" fontWeight="bold">Tipo de Exercício:</Box> {exercise.type}
               </Text>
-            </Box>
-            <Box>
-              <Heading size='xs' textTransform='uppercase'>
-                Analysis
-              </Heading>
-              <Text pt='2' fontSize='sm'>
-                See a detailed analysis of all your business clients.
+
+              <Text pt={3} fontSize="large">
+                <Box as="span" fontWeight="bold">Dificuldade:</Box> {exercise.difficulty}
               </Text>
+
+              <Text pt={3} fontSize="large">
+                <Box as="span" fontWeight="bold">Equipamento:</Box> {exercise.equipment}
+              </Text>
+
+              <Text pt={3} fontSize="large">
+                <Box as="span" fontWeight="bold">Instruções:</Box> {exercise.instructions}
+              </Text>
+
             </Box>
-          </Stack>
-        </CardBody>
-      </Card>
-    )
+          ))
+        ) : (
+          <Text>Nenhum exercício encontrado</Text>
+        )}
+      </VStack>
+    </Box>
+  );
 };
 
 export default CardTemplate;
