@@ -14,26 +14,26 @@ const Muscle: React.FC<MuscleProps> = ({ setParameter1, setParameter2 }) => {
     return (
         <Stack spacing={5} direction="row">
             <Select
-                placeholder='Grupo Muscular'
+                placeholder='Muscle Group'
                 borderColor='blue.500'
                 onChange={handleChange}
             >
-                <option value={'abdominals'}> Abdominais </option>
-                <option value={'abductors'}> Abduções </option>
-                <option value={'adductors'}> Adutores </option>
-                <option value={'biceps'}> Bíceps </option>
-                <option value={'triceps'}> Tríceps </option>
-                <option value={'calves'}> Panturilhas </option>
-                <option value={'chest'}> Peitoral </option>
-                <option value={'forearms'}> Antebraços </option>
-                <option value={'glutes'}> Glúteos </option>
-                <option value={'hamstrings'}> Posterior de Coxa </option>
-                <option value={'lats'}> Latíssimo do Dorso </option>
-                <option value={'lower_back'}> Parte Baixa das Costas </option>
-                <option value={'middle_back'}> Parte do Meio das Costas </option>
-                <option value={'neck'}> Pescoço </option>
-                <option value={'quadriceps'}> Quadríceps </option>
-                <option value={'traps'}> Trapézio </option>
+                <option value={'abdominals'}> Abdominals </option>
+                <option value={'abductors'}> Abductors </option>
+                <option value={'adductors'}> Adductors </option>
+                <option value={'biceps'}> Biceps </option>
+                <option value={'triceps'}> Triceps </option>
+                <option value={'calves'}> Calves </option>
+                <option value={'chest'}> Chest </option>
+                <option value={'forearms'}> Forearms </option>
+                <option value={'glutes'}> Glutes </option>
+                <option value={'hamstrings'}> Hamstrings </option>
+                <option value={'lats'}> Lats </option>
+                <option value={'lower_back'}> Lower Back </option>
+                <option value={'middle_back'}> Middle Back </option>
+                <option value={'neck'}> Neck </option>
+                <option value={'quadriceps'}> Quadriceps </option>
+                <option value={'traps'}> Traps </option>
             </Select>
         </Stack>
     )

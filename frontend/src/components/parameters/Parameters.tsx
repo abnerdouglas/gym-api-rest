@@ -25,14 +25,14 @@ const Parameters = () => {
       const data = await exercisesAPI(parameter1, parameter2);
       setExercises(data);
       toast({
-        title: 'Busca realizada com sucesso!',
+        title: 'Search completed successfully!',
         status: 'success',
         duration: 2000,
         isClosable: true
       })
     } catch (error: any) {
       toast({
-        title: 'Falha na busca dos dados.',
+        title: 'Error when fetching data.',
         description: error.message,
         status: 'error',
         duration: 2000,
@@ -47,13 +47,13 @@ const Parameters = () => {
     <Box p={4}>
       <HStack spacing={5} direction="row">
         <Select
-          placeholder="Selecione um parâmetro"
+          placeholder="Select one parameter"
           onChange={handleSelectChange}
           borderColor="blue.500"
         >
-          <option value="muscle"> Músculo </option>
-          <option value="type"> Tipo de Exercício </option>
-          <option value="difficulty"> Dificuldade </option>
+          <option value="muscle"> Muscle </option>
+          <option value="type"> Type of Exercise </option>
+          <option value="difficulty"> Difficulty </option>
         </Select>
         {selectedParameter === 'muscle' && (
           <Muscle setParameter1={setParameter1} setParameter2={setParameter2} />
@@ -65,7 +65,7 @@ const Parameters = () => {
           <Difficulty setParameter1={setParameter1} setParameter2={setParameter2} />
         )}
         <Tooltip 
-          label="Por favor, selecione os parâmetros antes de buscar" 
+          label="Please, select the parameter before searching for data" 
           isDisabled={!isButtonDisabled}
           bg="blue.400"
           color="white"
@@ -80,7 +80,7 @@ const Parameters = () => {
           isDisabled={!parameter1 || !parameter2}
 
         >
-          Buscar
+          Search
         </Button>
         </Tooltip>
       </HStack>

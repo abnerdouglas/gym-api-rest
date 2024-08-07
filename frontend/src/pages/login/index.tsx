@@ -35,7 +35,7 @@ const Login = () => {
       const data = await authenticate(email, password);
       Cookies.set('token', data.token, { expires: 1, secure: true, sameSite: 'strict' });
       toast({
-        title: 'Login realizado com sucesso.',
+        title: 'Login successfully.',
         status: 'success',
         duration: 5000,
         isClosable: true,
@@ -43,7 +43,7 @@ const Login = () => {
       router.push('/dashboard');
     } catch (error: any) {
       toast({
-        title: 'Falha na autenticação.',
+        title: 'Error in the authentication.',
         description: error.message,
         status: 'error',
         duration: 5000,
@@ -68,7 +68,7 @@ const Login = () => {
         <Stack align="center">
           <Heading fontSize="4xl">GYM API REST</Heading>
           <Text fontSize="lg" color="gray.600">
-            Realize o login com os dados abaixo:
+            Log in using the information below:
           </Text>
         </Stack>
         <Box
@@ -89,23 +89,23 @@ const Login = () => {
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
                   required
-                  placeholder='Digite seu email'
+                  placeholder='Type your email'
                 />
               </FormControl>
               <FormControl id="password">
 
-                <FormLabel>Senha</FormLabel>
+                <FormLabel>Password</FormLabel>
                 <InputGroup size='md'>
                   <Input
                     type={show ? 'text' : 'password'}
                     value={password}
                     onChange={(e) => setPassword(e.target.value)}
                     required
-                    placeholder='Digite sua senha'
+                    placeholder='Type your password'
                   />
-                  <InputRightElement width='4.5rem'>
+                  <InputRightElement width='3rem'>
                     <Button h='2.5rem' size='sm' onClick={handleClick}>
-                      {show ? 'Esconder' : 'Mostrar'}
+                      {show ? 'Hide' : 'Show'}
                     </Button>
                   </InputRightElement>
                 </InputGroup>
@@ -122,13 +122,13 @@ const Login = () => {
                   }}
                   type="submit"
                 >
-                  Entrar
+                  Login
                 </Button>
               </Stack>
                 
               <Stack spacing={10}>
                 <Link href="/register">
-                  Não possui cadastro ainda? Clique aqui
+                 Don't have an acoount yet? Click here
                 </Link>
               </Stack>
             

@@ -14,13 +14,13 @@ const Difficulty : React.FC<DifficultyProps> = ({setParameter1, setParameter2}) 
     return (
         <Stack spacing={5} direction="row">
             <Select
-                placeholder='Nível de dificuldade'
+                placeholder='Level of difficulty'
                 borderColor='blue.500'
                 onChange={handleChange}
             >
-                <option value='beginner'> Iniciante </option>
-                <option value='intermediate'> Intermediário </option>
-                <option value='expert'> Avançado </option>
+                <option value='beginner'> Beginner </option>
+                <option value='intermediate'> Intermediate </option>
+                <option value='expert'> Expert </option>
             </Select>
         </Stack>
     )

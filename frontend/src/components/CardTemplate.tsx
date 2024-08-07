@@ -14,29 +14,29 @@ const CardTemplate = () => {
               <Heading size={'md'}> {exercise.name} </Heading>
 
               <Text pt={3} fontSize="large">
-                <Box as="span" fontWeight="bold">Músculo:</Box> {exercise.muscle}
+                <Box as="span" fontWeight="bold">Muscle:</Box> {exercise.muscle}
               </Text>
 
               <Text pt={3} fontSize="large">
-                <Box as="span" fontWeight="bold">Tipo de Exercício:</Box> {exercise.type}
+                <Box as="span" fontWeight="bold">Type of Exercise:</Box> {exercise.type}
               </Text>
 
               <Text pt={3} fontSize="large">
-                <Box as="span" fontWeight="bold">Dificuldade:</Box> {exercise.difficulty}
+                <Box as="span" fontWeight="bold">Difficulty:</Box> {exercise.difficulty}
               </Text>
 
               <Text pt={3} fontSize="large">
-                <Box as="span" fontWeight="bold">Equipamento:</Box> {exercise.equipment}
+                <Box as="span" fontWeight="bold">Equipment:</Box> {exercise.equipment}
               </Text>
 
               <Text pt={3} fontSize="large">
-                <Box as="span" fontWeight="bold">Instruções:</Box> {exercise.instructions}
+                <Box as="span" fontWeight="bold">Instructions:</Box> {exercise.instructions || 'No instructions provided'}
               </Text>
 
             </Box>
           ))
         ) : (
-          <Text>Nenhum exercício encontrado</Text>
+          <Text>There are no exercises selected yet to show here</Text>
         )}
       </VStack>
     </Box>

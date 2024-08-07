@@ -53,8 +53,8 @@ const Register = () => {
 
     if (!validateCPFFormat(cpf)) {
       toast({
-        title: 'Formato de CPF inválido.',
-        description: 'Por favor, insira o CPF no formato xxx.xxx.xxx-xx.',
+        title: 'Invalid CPF format.',
+        description: 'Please, type the CPF in format xxx.xxx.xxx-xx.',
         status: 'error',
         duration: 5000,
         isClosable: true,
@@ -64,8 +64,8 @@ const Register = () => {
     }
     if (!validateCPF(cpf)) {
       toast({
-        title: 'CPF inválido.',
-        description: 'Por favor, insira um CPF válido.',
+        title: 'Invalid CPF.',
+        description: 'Please, type one valid CPF.',
         status: 'error',
         duration: 5000,
         isClosable: true,
@@ -79,7 +79,7 @@ const Register = () => {
       await register(name, cpf, dateOfBirth, email, password, mappedRole);
 
       toast({
-        title: 'Cadastro realizado com sucesso.',
+        title: 'Registered successfully.',
         status: 'success',
         duration: 5000,
         isClosable: true,
@@ -87,7 +87,7 @@ const Register = () => {
       router.push('/login');
     } catch (error: any) {
       toast({
-        title: 'Falha na autenticação do cadastro.',
+        title: 'Error in registering your account.',
         description: error.message,
         status: 'error',
         duration: 5000,
@@ -109,9 +109,9 @@ const Register = () => {
     >
       <Stack spacing={8} mx="auto" width="100%" py={12} maxW="lg">
         <Stack align="center">
-        <Heading fontSize="4xl">Cadastro</Heading>
+        <Heading fontSize="4xl">Register</Heading>
           <Text fontSize="lg" color="gray.600">
-            Realize o cadastro com os dados abaixo:
+            Register using the information below:
           </Text>
         </Stack>
         <Box
@@ -126,13 +126,13 @@ const Register = () => {
             <Stack spacing={4}>
 
               <FormControl id="name">
-                <FormLabel>Nome</FormLabel>
+                <FormLabel>Name</FormLabel>
                 <Input
                   type="text"
                   value={name}
                   onChange={(e) => setName(e.target.value)}
                   required
-                  placeholder='Digite seu nome completo'
+                  placeholder='Type your full name'
                 />
               </FormControl>
 
@@ -148,13 +148,13 @@ const Register = () => {
               </FormControl>
 
               <FormControl id="dateOfBirth">
-                <FormLabel>Data de Nascimento</FormLabel>
+                <FormLabel>Date of Birth</FormLabel>
                 <Input
                   type="date"
                   value={dateOfBirth}
                   onChange={(e) => setDateOfBirth(e.target.value)}
                   required
-                  placeholder='Digite sua data de nascimento'
+                  placeholder='Type your date of birth'
                 />
               </FormControl>
 
@@ -165,37 +165,37 @@ const Register = () => {
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
                   required
-                  placeholder='Digite seu email'
+                  placeholder='Type your e-mail'
                 />
               </FormControl>
 
               <FormControl id="password">
-                <FormLabel>Senha</FormLabel>
+                <FormLabel>Password</FormLabel>
                 <InputGroup size='md'>
                   <Input
                     type={show ? 'text' : 'password'}
                     value={password}
                     onChange={(e) => setPassword(e.target.value)}
                     required
-                    placeholder='Digite sua senha'
+                    placeholder='Type your password'
                   />
-                  <InputRightElement width='4.5rem'>
+                  <InputRightElement width='3rem'>
                     <Button h='2.5rem' size='sm' onClick={handleClick}>
-                      {show ? 'Esconder' : 'Mostrar'}
+                      {show ? 'Hide' : 'Show'}
                     </Button>
                   </InputRightElement>
                 </InputGroup>
               </FormControl>
 
               <FormControl id="role">
-                <FormLabel>Função</FormLabel>
+                <FormLabel>Role</FormLabel>
                   <Select 
                     placeholder='Selecione uma função'
                     value={role}
                     onChange={(e) => setRole(e.target.value)}
                     >
-                   <option value='admin'> Administrador </option>
-                   <option value='user'> Usuário </option>
+                   <option value='admin'> Admin </option>
+                   <option value='user'> User </option>
                  </Select>
               </FormControl>
 
@@ -209,13 +209,13 @@ const Register = () => {
                   }}
                   type="submit"
                 >
-                  Cadastrar
+                  Register
                 </Button>
               </Stack>
 
               <Stack spacing={10}>
                 <Link href="/login">
-                  Já possui o cadastro? Clique aqui para realizar o login
+                  Already have one account? Click here to log-in
                 </Link>
               </Stack>
 

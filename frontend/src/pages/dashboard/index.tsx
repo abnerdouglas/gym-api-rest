@@ -35,12 +35,12 @@ const Dashboard = () => {
       >
         <Text fontSize="xl" fontWeight="bold">Dashboard</Text>
         <Button onClick={handleLogout} colorScheme="red">
-          Sair da conta
+          Logout
         </Button>
       </Flex>
       <Box p={4}>
-        <Text fontSize="2xl" fontWeight="bold">Dashboard</Text>
-        <Text>Bem vido a dashboard!</Text>
+        <Text fontSize="2xl" fontWeight="bold">Exercises Dashboard</Text>
+        <Text>Select the parameter and search for the corresponding exercise data.</Text>
       </Box>
       <Parameters/>
       <CardTemplate/>

@@ -14,16 +14,16 @@ const TypeExercise : React.FC<TypeExerciseProps> = ({setParameter1, setParameter
     return (
         <Stack spacing={5} direction="row">
             <Select
-                placeholder='Tipo de Exercício'
+                placeholder='Type of Exercise'
                 borderColor='blue.500'
                 onChange={handleChange}
             >
                 <option value='cardio'> Cardio </option>
-                <option value='olympic_weightlifting'> Levantamento de Peso Olímpico </option>
-                <option value='plyometrics'> Pilometria </option>
-                <option value='powerlifting'> Levantamento de Peso </option>
-                <option value='strength'> Força </option>
-                <option value='stretching'> Alongamento </option>
+                <option value='olympic_weightlifting'> Olympic Weighlifting </option>
+                <option value='plyometrics'> Plyometrics </option>
+                <option value='powerlifting'> Powerlifting</option>
+                <option value='strength'> Strength </option>
+                <option value='stretching'> Stretching </option>
                 <option value='strongman'> Strongman </option>
             </Select>
         </Stack>
