@@ -104,12 +104,12 @@
 	</dependencies>
 
 	<build>
+		<finalName>gym-api-rest</finalName>
 		<plugins>
 			<plugin>
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
 				<configuration>
-					<finalName>gym-api-rest</finalName>
 					<excludes>
 						<exclude>
 							<groupId>org.projectlombok</groupId>

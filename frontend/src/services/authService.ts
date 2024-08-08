@@ -32,3 +32,19 @@ export const register = async (name: string, cpf: string, dateOfBirth: string, e
 
   return await response.json();
 };
+
+export const getUsers = async () => {
+  const response = await fetch('http://localhost:8080/api/users',{
+    method: 'GET',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+  });
+
+  if(!response.ok) {
+    const error = await response.json();
+    throw new Error(error.message || 'Erro ao buscar os usuários');  
+  }
+
+  return await response.json();
+}

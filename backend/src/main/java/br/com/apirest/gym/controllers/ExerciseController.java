@@ -15,6 +15,7 @@ import java.util.Map;
 @RestController
 @RequestMapping("/api")
 public class ExerciseController {
+    @Autowired
     private final ExerciseService exerciseService;
 
     @Autowired
