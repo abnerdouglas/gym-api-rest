@@ -7,17 +7,17 @@ import lombok.*;
 
 public class Exercise {
 
-    @JsonProperty
+    @JsonProperty("name")
     private String name;
-    @JsonProperty
+    @JsonProperty("type")
     private String type;
-    @JsonProperty
+    @JsonProperty("muscle")
     private String muscle;
-    @JsonProperty
+    @JsonProperty("equipment")
     private String equipment;
-    @JsonProperty
+    @JsonProperty("difficulty")
     private String difficulty;
-    @JsonProperty
+    @JsonProperty("instructions")
     private String instructions;
 
 }

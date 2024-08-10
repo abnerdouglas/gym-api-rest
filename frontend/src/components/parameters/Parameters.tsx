@@ -12,6 +12,7 @@ const Parameters = () => {
   const [parameter2, setParameter2] = useState('');
   const { setExercises } = useExercise();
   const toast = useToast();
+  const [loading, setLoading] = useState(false);
 
   const handleSelectChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
     setSelectedParameter(e.target.value);
@@ -21,6 +22,8 @@ const Parameters = () => {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    setLoading(true);
+
     try {
       const data = await exercisesAPI(parameter1, parameter2);
       setExercises(data);
@@ -38,6 +41,8 @@ const Parameters = () => {
         duration: 2000,
         isClosable: true,
       });
+    } finally {
+      setLoading(false);
     }
   }
 
@@ -78,7 +83,7 @@ const Parameters = () => {
           width={'30vh'}
           onClick={handleSubmit}
           isDisabled={!parameter1 || !parameter2}
-
+          isLoading={loading}
         >
           Search
         </Button>

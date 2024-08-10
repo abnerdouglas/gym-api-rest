@@ -19,13 +19,16 @@ services:
       dockerfile: Dockerfile
     container_name: backend-api
     environment:
-      SPRING_DATASOURCE_URL: jdbc:mysql://mysql-db:3306/gymjava
-      SPRING_DATASOURCE_USERNAME: root
-      SPRING_DATASOURCE_PASSWORD: bibiner
+      SPRING_PROFILES_ACTIVE: docker
+      SPRING_DATASOURCE_URL: ${SPRING_DATASOURCE_URL}
+      SPRING_DATASOURCE_USERNAME: ${SPRING_DATASOURCE_USERNAME}
+      SPRING_DATASOURCE_PASSWORD: ${SPRING_DATASOURCE_PASSWORD}
+      API_KEY: ${API_KEY}
+      SECRET_KEY: ${SECRET_KEY}
+      ISSUER: ${ISSUER}
+      API_URL: ${API_URL}
     ports:
       - "8080:8080"
-    depends_on:
-      - mysql
     networks:
       - backnet
 
