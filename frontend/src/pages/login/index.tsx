@@ -18,6 +18,7 @@ import Cookies from 'js-cookie';
 import { authenticate } from '../../services/authService';
 import React from 'react';
 import Link from 'next/link';
+import Head from 'next/head';
 
 const Login = () => {
   const [email, setEmail] = useState('');
@@ -64,6 +65,10 @@ const Login = () => {
       py={12}
       px={6}
     >
+      <Head>
+        <title>Login - Gym Api Rest</title>
+      </Head>
+      
       <Stack spacing={8} mx="auto" maxW="lg" width="100%" py={12} px={6}>
         <Stack align="center">
           <Heading fontSize="4xl">GYM API REST</Heading>
@@ -128,7 +133,7 @@ const Login = () => {
                 
               <Stack spacing={10}>
                 <Link href="/register">
-                 Don't have an acoount yet? Click here
+                 Does not have an account yet? Click here
                 </Link>
               </Stack>
             

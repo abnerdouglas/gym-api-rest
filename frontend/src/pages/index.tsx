@@ -13,7 +13,7 @@ const Home: React.FC<HomeProps> = ({ isAuthenticated }) => {
     if (!isAuthenticated) {
       router.push('/login');
     }
-  }, [isAuthenticated]);
+  }, [isAuthenticated, router]);
 
   if (!isAuthenticated) {
     return null; // ou exibir um indicador de carregamento

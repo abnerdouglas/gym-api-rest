@@ -5,8 +5,8 @@ import br.com.apirest.gym.validations.ValidationDifficulty;
 import br.com.apirest.gym.validations.ValidationExerciseType;
 import br.com.apirest.gym.validations.ValidationMuscleGroup;
 import br.com.apirest.gym.validations.ValidationParameter;
-import io.github.cdimascio.dotenv.Dotenv;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
@@ -21,10 +21,10 @@ import java.util.Objects;
 
 @Service
 public class ExerciseService {
-
-    private static final Dotenv dotenv = Dotenv.load();
-    private static final String API_URL_TEMPLATE = dotenv.get("API_URL_TEMPLATE");
-    private static final String API_KEY = dotenv.get("API_KEY");
+    @Value("${API_URL}")
+    private String API_URL;
+    @Value("${API_KEY}")
+    private String API_KEY;
     @Autowired
     private RestTemplate restTemplate;
     @Autowired
@@ -39,7 +39,7 @@ public class ExerciseService {
     public List<Exercise> getExercises(String muscle, String type, String difficulty) {
         validateQueryParams(muscle, type, difficulty);
         String queryString = buildQueryString(muscle, type, difficulty);
-        String url = API_URL_TEMPLATE + "?" + queryString;
+        String url = API_URL + "?" + queryString;
 
         ResponseEntity<List<Exercise>> response = restTemplate.exchange(
                 url,
