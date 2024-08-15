@@ -38,4 +38,3 @@ build/
 .docker/
 docker-compose.override.yml
 docker-compose.local.yml
-/src/main/resources/**
