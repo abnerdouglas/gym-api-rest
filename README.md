@@ -36,18 +36,19 @@ Este projeto consiste em uma api rest que permite o cadastro e login de usuário
 - **React**: Biblioteca JavaScript para construção de interfaces de usuário.
 - **Chakra UI**: Biblioteca de componentes React.
 
-## Como Executar o Projeto Sem Docker
-
-- Adicione as variáveis necessárias no arquivo application.properties dentro da pasta resources
-- Inicialize o projeto através da classe main: GymApplication.java
-
 ## Como Executar o Projeto Com Docker
-
+- Adicione as variáveis necessárias no arquivo `application.properties` e `application-docker.properties` dentro da pasta resources
+- Faça o build do projeto através do maven para geração da pasta target
+```bash
+$ mvn clean package
+```
 - Adicione o arquivo .env na raiz do projeto com as variáveis necessárias
 - Execute o Docker Compose para subir os serviços:
 ```bash
 $ docker-compose up -d
 ```
+
+### Os Serviços Estarão Disponíveis nos Seguintes Endpoints:
 - Frontend: http://localhost:3000/login
 - Backend: http://localhost:8080/api
 - Adminer: http://localhost:8081
