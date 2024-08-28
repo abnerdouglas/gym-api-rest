@@ -35,7 +35,7 @@ public class JwtTokenService {
         }
     }
 
-    public String getSubjectFromToken(String token) throws InvalidTokenException {
+    public String getSubjectFromToken(String token) {
         try {
             Algorithm algorithm = Algorithm.HMAC256(SECRET_KEY);
             return JWT.require(algorithm)
@@ -43,7 +43,7 @@ public class JwtTokenService {
                     .build()
                     .verify(token)
                     .getSubject();
-        } catch (JWTVerificationException exception){
+        } catch (Exception exception){
             throw new InvalidTokenException("Token inválido.");
         }
     }

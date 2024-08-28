@@ -3,6 +3,7 @@ package br.com.apirest.gym.services;
 import br.com.apirest.gym.dto.CreateUserDto;
 import br.com.apirest.gym.dto.LoginUserDto;
 import br.com.apirest.gym.dto.RecoveryJwtTokenDto;
+import br.com.apirest.gym.dto.UpdateUserDTO;
 import br.com.apirest.gym.models.Role;
 import br.com.apirest.gym.models.User;
 import br.com.apirest.gym.exceptions.users.AuthErrorException;
@@ -18,6 +19,8 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.io.IOException;
+import java.security.InvalidParameterException;
 import java.util.List;
 
 @Service
@@ -86,5 +89,27 @@ public class UserService {
 
         // Retornar a lista de usuários
         return userRepository.findAll();
+    }
+
+    public void removeUser(Long id) {
+        if (!userRepository.existsById(id)){
+            throw new InvalidParameterException("Usuário com id " + id + " não encontrado.");
+        }
+        userRepository.deleteById(id);
+    }
+
+    public void updateUser(UpdateUserDTO userDTO){
+        User existingUser = userRepository.findById(userDTO.id())
+                .orElseThrow(() -> new InvalidParameterException("Usuário com id " + userDTO.id() + " não encontrado."));
+
+        // Atualiza os campos do usuário existente
+        existingUser.setName(userDTO.name());
+        existingUser.setEmail(userDTO.email());
+        existingUser.setDateOfBirth(userDTO.dateOfBirth());
+        existingUser.setCpf(userDTO.cpf());
+        existingUser.setPassword(passwordEncoder.encode(userDTO.password()));
+
+        // Salva o usuário atualizado
+        userRepository.save(existingUser);
     }
 }

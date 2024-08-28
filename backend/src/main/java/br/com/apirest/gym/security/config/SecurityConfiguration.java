@@ -4,6 +4,7 @@ import br.com.apirest.gym.security.authentication.UserAuthenticationFilter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpStatus;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -29,7 +30,8 @@ public class SecurityConfiguration {
 
     public static final String [] ENDPOINTS_WITH_AUTHENTICATION_REQUIRED = {
             "/api/users",
-            "/api/exercises"
+            "/api/exercises",
+            "/api/users/*"
     };
 
     @Bean
@@ -44,7 +46,16 @@ public class SecurityConfiguration {
                         .requestMatchers(ENDPOINTS_WITH_AUTHENTICATION_REQUIRED).authenticated()
                         .anyRequest().authenticated()
                 )
-                .addFilterBefore(userAuthenticationFilter, UsernamePasswordAuthenticationFilter.class);
+                .addFilterBefore(userAuthenticationFilter, UsernamePasswordAuthenticationFilter.class)
+                .exceptionHandling(exceptionHandling -> exceptionHandling
+                        .authenticationEntryPoint((request, response, authException) -> {
+                            response.setContentType("application/json; charset=UTF-8");
+                            response.setCharacterEncoding("UTF-8");
+                            response.setStatus(HttpStatus.FORBIDDEN.value());
+                            response.getWriter().write("Token não informado.");
+                        })
+                );
+
 
         return httpSecurity.build();
     }

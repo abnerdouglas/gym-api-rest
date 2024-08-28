@@ -44,13 +44,8 @@ public class RestExceptionHandler {
     }
 
     @ExceptionHandler(InvalidTokenException.class)
-    public ResponseEntity<ApiError> tokenError(InvalidTokenException e) {
-        ApiError apiError = ApiError.builder()
-                .code(HttpStatus.FORBIDDEN.value())
-                .status(HttpStatus.FORBIDDEN.name())
-                .errors(List.of(e.getMessage()))
-                .build();
-        return new ResponseEntity<>(apiError, HttpStatus.FORBIDDEN);
+    public ResponseEntity<String> handleInvalidTokenException(InvalidTokenException ex) {
+        return ResponseEntity.status(HttpStatus.FORBIDDEN).body(ex.getMessage());
     }
 
     @ExceptionHandler(MuscleGroupException.class)
@@ -82,4 +77,5 @@ public class RestExceptionHandler {
                 .build();
         return new ResponseEntity<>(apiError, HttpStatus.BAD_REQUEST);
     }
+
 }
