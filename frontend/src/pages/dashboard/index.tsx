@@ -4,6 +4,7 @@ import Cookies from 'js-cookie';
 import useAuth from '@/hooks/useAuth';
 import CardTemplate from '@/components/CardTemplate';
 import Parameters from '@/components/parameters/Parameters';
+import Head from 'next/head';
 
 const Dashboard = () => {
   const { isAuthenticated } = useAuth();
@@ -33,6 +34,10 @@ const Dashboard = () => {
         alignItems="center"
         mb={8}
       >
+        <Head>
+          <title>Dashboard</title>
+        </Head>
+
         <Text fontSize="xl" fontWeight="bold">Dashboard</Text>
         <Button onClick={handleLogout} colorScheme="red">
           Logout

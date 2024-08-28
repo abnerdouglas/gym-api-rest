@@ -66,7 +66,7 @@ const Login = () => {
       px={6}
     >
       <Head>
-        <title>Login - Gym Api Rest</title>
+        <title>Login</title>
       </Head>
       
       <Stack spacing={8} mx="auto" maxW="lg" width="100%" py={12} px={6}>

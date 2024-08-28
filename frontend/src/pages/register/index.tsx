@@ -19,6 +19,7 @@ import React from 'react';
 import { register } from '@/services/authService';
 import { mapRole, validateCPF } from '@/utils/validateValues';
 import Link from 'next/link';
+import Head from 'next/head';
 
 const Register = () => {
   const [name, setName] = useState('');
@@ -107,6 +108,10 @@ const Register = () => {
       bg={useColorModeValue('gray.50', 'gray.800')}
       px={6}
     >
+      <Head>
+        <title>Register</title>
+      </Head>
+
       <Stack spacing={8} mx="auto" width="100%" py={12} maxW="lg">
         <Stack align="center">
         <Heading fontSize="4xl">Register</Heading>
