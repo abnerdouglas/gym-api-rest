@@ -7,6 +7,8 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
+import java.util.Objects;
+
 @Entity
 @Table(name = "roles")
 @Builder
@@ -21,4 +23,18 @@ public class Role {
 
     @Enumerated(EnumType.STRING)
     private RoleName name;
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Role role = (Role) o;
+        return Objects.equals(name, role.name); // Aqui você compara os campos relevantes
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(name); // Use os mesmos campos usados em equals
+    }
+
 }
