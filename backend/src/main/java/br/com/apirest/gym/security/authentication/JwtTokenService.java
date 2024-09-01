@@ -1,6 +1,5 @@
 package br.com.apirest.gym.security.authentication;
 
-import br.com.apirest.gym.exceptions.users.InvalidTokenException;
 import br.com.apirest.gym.security.userDetails.UserDetailsImpl;
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.algorithms.Algorithm;
@@ -31,7 +30,7 @@ public class JwtTokenService {
                     .withSubject(user.getUsername())
                     .sign(algorithm);
         } catch (JWTCreationException exception){
-            throw new JWTCreationException("Erro ao gerar token.", exception);
+            throw new RuntimeException("Erro ao gerar token.", exception);
         }
     }
 
@@ -43,8 +42,8 @@ public class JwtTokenService {
                     .build()
                     .verify(token)
                     .getSubject();
-        } catch (Exception exception){
-            throw new InvalidTokenException("Token inválido.");
+        } catch (JWTVerificationException exception){
+            throw new RuntimeException("Token inválido ou expirado.");
         }
     }
 

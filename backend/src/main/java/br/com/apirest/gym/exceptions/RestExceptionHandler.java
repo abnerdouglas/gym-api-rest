@@ -4,11 +4,13 @@ import br.com.apirest.gym.exceptions.exercises.DifficultyLevelException;
 import br.com.apirest.gym.exceptions.exercises.ExerciseTypeException;
 import br.com.apirest.gym.exceptions.exercises.MuscleGroupException;
 import br.com.apirest.gym.exceptions.users.InvalidTokenException;
+import jakarta.persistence.EntityNotFoundException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
+import org.springframework.web.servlet.NoHandlerFoundException;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -16,15 +18,9 @@ import java.util.stream.Collectors;
 @RestControllerAdvice
 public class RestExceptionHandler {
 
-    @ExceptionHandler(Exception.class)
-    public ResponseEntity<ApiError> genericException(Exception e){
-        ApiError apiError = ApiError
-                .builder()
-                .code(HttpStatus.INTERNAL_SERVER_ERROR.value())
-                .status(HttpStatus.INTERNAL_SERVER_ERROR.name())
-                .errors(List.of(e.getMessage()))
-                .build();
-        return new ResponseEntity<>(apiError, HttpStatus.INTERNAL_SERVER_ERROR);
+    @ExceptionHandler({EntityNotFoundException.class, NoHandlerFoundException.class})
+    public ResponseEntity tratarErro404() {
+        return ResponseEntity.notFound().build();
     }
 
     @ExceptionHandler(MethodArgumentNotValidException.class)
@@ -44,9 +40,15 @@ public class RestExceptionHandler {
     }
 
     @ExceptionHandler(InvalidTokenException.class)
-    public ResponseEntity<String> handleInvalidTokenException(InvalidTokenException ex) {
-        return ResponseEntity.status(HttpStatus.FORBIDDEN).body(ex.getMessage());
+    public ResponseEntity<ApiError> handleInvalidTokenException(InvalidTokenException ex) {
+        ApiError apiError = ApiError.builder()
+                .code(HttpStatus.UNAUTHORIZED.value())
+                .status(HttpStatus.UNAUTHORIZED.name())
+                .errors(List.of(ex.getMessage()))
+                .build();
+        return new ResponseEntity<>(apiError, HttpStatus.UNAUTHORIZED);
     }
+
 
     @ExceptionHandler(MuscleGroupException.class)
     public ResponseEntity<ApiError> muscleGroupValidationException(MuscleGroupException e) {

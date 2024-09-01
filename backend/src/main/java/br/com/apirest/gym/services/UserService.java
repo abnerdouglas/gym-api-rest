@@ -19,7 +19,6 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import java.io.IOException;
 import java.security.InvalidParameterException;
 import java.util.List;
 
@@ -75,19 +74,7 @@ public class UserService {
         userRepository.save(newUser);
     }
 
-    public List<User> getAllUsers(String token) {
-        // Verificar se o token é nulo ou vazio
-        if (token == null || !token.startsWith("Bearer ")) {
-            throw new IllegalArgumentException("Token inválido ou ausente");
-        }
-
-        // Remover o prefixo "Bearer "
-        token = token.substring(7);
-
-        // Obter o assunto do token para qualquer lógica adicional (opcional)
-        String subject = jwtTokenService.getSubjectFromToken(token);
-
-        // Retornar a lista de usuários
+    public List<User> getAllUsers() {
         return userRepository.findAll();
     }
 
